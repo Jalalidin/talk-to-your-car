@@ -1,7 +1,7 @@
 import can
 import threading
 import time
-import random
+import secrets
 
 def print_message(msg):
     print(msg)
@@ -19,7 +19,7 @@ class tx_thread_cl:
 
     def tx_callback(self, bus):
         while self.running:
-            data = [random.randint(0,15) for i in range(0,8)]
+            data = [secrets.SystemRandom().randint(0,15) for i in range(0,8)]
             msg = can.Message(is_extended_id=False, arbitration_id=0x7E0, data=data)
             bus.send(msg)
             time.sleep(0.5)
